@@ -142,17 +142,16 @@ Token LexicalAnalyzer::ScanNumber()
             else if (c == 'x')
             {
                 input.GetChar(c);
-                if (c == '0') //x0
+                if (c == '0') 
                 {
-                    buff.push(c); //puts 0 on the stack
+                    buff.push(c); 
 
                     input.GetChar(c);
 
-                    if (c == '8') //x08
+                    if (c == '8') 
                     {
-                        buff.push(c); //puts 8 on the stack
+                        buff.push(c); 
 
-                        //check the lexeme for 8, 9, or alphas
                         for (int i = 0; i < tmp.lexeme.size(); i++)
                         {
                             if (tmp.lexeme[i] > '7')
@@ -167,21 +166,21 @@ Token LexicalAnalyzer::ScanNumber()
                         if (buff.isEmpty() == false)
                         {
                             tmp.lexeme += buff.toString();
-                            //empty the buff
-                            buff.pop(); //pops 8
-                            buff.pop(); //pops 0
-                            buff.pop(); //pops x
+                            
+                            buff.pop(); 
+                            buff.pop(); 
+                            buff.pop(); 
 
                             tmp.token_type = BASE08NUM;
                             tmp.line_no = line_no;
                             return tmp;
                         }
                     }
-                    else //x0__
+                    else 
                     {
-                        input.UngetChar(c); //unget the character
-                        input.UngetChar(buff.pop()); //ungets 0
-                        input.UngetChar(buff.pop()); //ungets x
+                        input.UngetChar(c); 
+                        input.UngetChar(buff.pop()); 
+                        input.UngetChar(buff.pop()); 
                     }
                 }
                 else if (c == '1')
@@ -220,21 +219,21 @@ Token LexicalAnalyzer::ScanNumber()
 
                 while (isdigit(c) || (c >= 'A' && c <= 'F'))
                 {
-                    buff.push(c); //push c onto stack
-                    input.GetChar(c); //get next input
+                    buff.push(c); 
+                    input.GetChar(c); 
                 }
 
                 if (c == 'x')
                 {
-                    buff.push(c); //push x onto stack
+                    buff.push(c); 
                     input.GetChar(c);
-                    if (c == '1') //x1
+                    if (c == '1') 
                     {
-                        buff.push(c); //push 1 onto stack
+                        buff.push(c); 
                         input.GetChar(c);
-                        if (c == '6') //x16
+                        if (c == '6') 
                         {
-                            buff.push(c); //push 6 onto stack;
+                            buff.push(c); 
 
                             tmp.lexeme += buff.toString();
                             while (buff.isEmpty() == false)
@@ -246,18 +245,18 @@ Token LexicalAnalyzer::ScanNumber()
                             tmp.line_no = line_no;
                             return tmp;
                         }
-                        else //x1__
+                        else 
                         {
-                            input.UngetChar(c); //unget the latest character
+                            input.UngetChar(c); 
                             while (buff.isEmpty() == false)
                             {
                                 input.UngetChar(buff.pop());
                             }
                         }
                     }
-                    else //x_
+                    else 
                     {
-                        input.UngetChar(c); //unget the latest character
+                        input.UngetChar(c); 
                         while (buff.isEmpty() == false)
                         {
                             input.UngetChar(buff.pop());
