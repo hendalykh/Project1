@@ -12,8 +12,8 @@
 #include "lexer.h"
 #include "inputbuf.h"
 #include "stack.h"
-#include "inputbuf.cc"
-#include "stack.cc"
+//#include "inputbuf.cc"
+//#include "stack.cc"
 
 using namespace std;
 
